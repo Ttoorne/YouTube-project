@@ -1,0 +1,42 @@
+.add-video {
+}
+.add-video > h2 {
+  font-weight: 500;
+}
+.add-video__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-video__inputs {
+  background: transparent;
+  color: #f1f1f1;
+  border: 1px solid #a1a1a1;
+  padding: 10px;
+  margin: 5px 0;
+  width: 40%;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.add-video__button {
+  width: 35%;
+  margin-top: 10px;
+  margin-left: 35px;
+  background-color: #d31f16;
+  color: #f1f1f1;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 10px 0;
+  cursor: pointer;
+  border: 1px solid #a1a1a1;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.add-video__button:hover {
+  background-color: #ff0000;
+  transition: 0.2s;
+}

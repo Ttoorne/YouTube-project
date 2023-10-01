@@ -1,0 +1,42 @@
+.edit-video {
+}
+.edit-video > h2 {
+  font-weight: 500;
+}
+.edit-video__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-video__inputs {
+  background: transparent;
+  color: #f1f1f1;
+  border: 1px solid #a1a1a1;
+  padding: 10px;
+  margin: 5px 0;
+  width: 40%;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.edit-video__button {
+  width: 35%;
+  margin-top: 10px;
+  margin-left: 35px;
+  background-color: #15a2d1;
+  color: #f1f1f1;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 10px 0;
+  cursor: pointer;
+  border: 1px solid #a1a1a1;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.edit-video__button:hover {
+  filter: brightness(80%);
+  transition: 0.2s;
+}

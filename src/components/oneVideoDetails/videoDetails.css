@@ -1,0 +1,50 @@
+.video-details__container {
+  display: flex;
+  font-family: "YouTube Sans", "Roboto", sans-serif;
+}
+
+.video-details__main {
+  width: 65%;
+}
+video-details__video {
+}
+.video-details__title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 1% 0 2%;
+}
+
+.video-details__descr {
+  display: flex;
+  justify-content: space-between;
+}
+
+.video-details__user {
+  display: flex;
+  align-items: center;
+  width: 25%;
+  height: 40px;
+}
+
+.video-details__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+.video-details__user > p {
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+}
+
+.video-details__likes {
+}
+
+.like-div {
+  position: relative;
+}
+.like-svg {
+  width: 70px !important;
+  height: 70px !important;
+}

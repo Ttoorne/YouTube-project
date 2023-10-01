@@ -1,38 +1,35 @@
-.App {
-  text-align: center;
+/* Уменьшение размера полосы прокрутки */
+::-webkit-scrollbar {
+  width: 8px; /* Установите желаемую ширину полосы прокрутки */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Уменьшение размера "бегунка" (ползунка) скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: #a1a1a1;
+  border-radius: 10px; /* Установите желаемый радиус скругления углов "бегунка" */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Уменьшение размера "бегунка" при наведении на полосу прокрутки */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes slide-in {
   from {
-    transform: rotate(0deg);
+    transform: translateY(-150%);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  from {
+    -webkit-transform: translateY(-150%);
+    transform: translateY(-150%);
+  }
+  to {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
   }
 }

@@ -1,0 +1,42 @@
+.history-card {
+  display: flex;
+  margin-bottom: 3%;
+  max-height: 255px;
+  font-family: "Roboto", Arial, sans-serif;
+  transition: 0.2s;
+}
+
+.history-card__img {
+  width: 460px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.history-card:hover {
+  transform: scale(0.9);
+  transition: 0.2s;
+}
+
+.history-card__info {
+  width: 58%;
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  margin-left: 2%;
+  cursor: pointer;
+}
+
+.history-card__title {
+  margin: 2% 0;
+  color: #f1f1f1;
+  font-size: 24px;
+}
+.history-card__username {
+  margin: 0 0 2%;
+  font-size: 20px;
+}
+
+.history-card__descr {
+  margin: 0;
+  font-size: 20px;
+}

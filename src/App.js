@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, useEffect, useState } from "react";
+import MainRoute from "./routes/MainRoute";
+import "./app.css";
+import Navbar from "./components/Navbar/Navbar";
+import LeftBar from "./components/LeftBar/LeftBar";
+import { useProduct } from "./contexts/ProductContextProvider";
+import LeftBarFalse from "./components/LeftBar/LeftBarFalse";
 
-function App() {
+const App = () => {
+  const { showLeftBar } = useProduct();
+  const pathName = window.location.pathname;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.StrictMode>
+      <div style={{ position: "relative" }}>
+        <Navbar />
+        <div style={{ display: "flex" }}>
+          {!pathName.includes(`/details`) ? (
+            showLeftBar ? (
+              <LeftBar />
+            ) : (
+              <LeftBarFalse />
+            )
+          ) : null}
+
+          <MainRoute />
+        </div>
+      </div>
+    </React.StrictMode>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,97 @@
+.video-card {
+  width: 32%;
+  cursor: pointer;
+  max-height: 380px;
+  margin-bottom: 1%;
+  cursor: default;
+}
+
+.video-card__img-container {
+  position: relative;
+}
+
+.add-playlist {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  top: 5%;
+  right: 5%;
+  z-index: 2;
+  background-color: #0f0f0f;
+  border-radius: 20px;
+}
+
+.video-card__img {
+  border-radius: 10px;
+  transition: 0.2s;
+  width: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.video-card__img:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+.video-card__info {
+  display: flex;
+  cursor: default;
+}
+
+.video-card__avatar {
+  cursor: default;
+}
+
+.video-card__avatar > img {
+  margin-top: 12px;
+  border-radius: 20px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.video-card__descr {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+  cursor: pointer;
+  min-height: 108px;
+}
+
+.video-card__title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 12px 0 5px;
+}
+.video-card__user {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin: 0;
+}
+
+.video-card__date {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin-top: 5px;
+}
+
+.video-card__func {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+}
+
+.video-card__delete-svg {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.video-card__edit-svg {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  margin-right: 3%;
+}

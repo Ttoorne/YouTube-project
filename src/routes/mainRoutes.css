@@ -1,0 +1,11 @@
+.main-routes {
+  width: 80%;
+  margin: 2% 0 0 1%;
+  top: 0;
+}
+
+.main-routes__details {
+  margin: 2% auto 0;
+  width: 98%;
+  margin-left: 45px;
+}

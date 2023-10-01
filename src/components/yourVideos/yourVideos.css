@@ -1,0 +1,6 @@
+.your-videos__list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: 2%;
+}

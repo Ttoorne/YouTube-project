@@ -1,0 +1,80 @@
+.your-video-card {
+  width: 32%;
+  cursor: pointer;
+  max-height: 380px;
+  margin-bottom: 1%;
+  cursor: default;
+}
+
+.your-video-card__img {
+  border-radius: 10px;
+  transition: 0.2s;
+  width: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.your-video-card__img:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+.your-video-card__info {
+  display: flex;
+  cursor: default;
+}
+
+.your-video-card__avatar {
+  cursor: default;
+}
+
+.your-video-card__avatar > img {
+  margin-top: 12px;
+  border-radius: 20px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.your-video-card__descr {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+  cursor: pointer;
+  min-height: 108px;
+}
+
+.your-video-card__title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 12px 0 5px;
+}
+.your-video-card__user {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin: 0;
+}
+
+.your-video-card__date {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin-top: 5px;
+}
+
+.your-video-card__func {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+}
+
+.your-video-card__delete-svg {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.your-video-card__edit-svg {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  margin-right: 3%;
+}
