@@ -1,5 +1,7 @@
 .add-video {
+  margin: auto;
 }
+
 .add-video > h2 {
   font-weight: 500;
 }

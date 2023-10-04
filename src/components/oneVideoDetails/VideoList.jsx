@@ -28,9 +28,11 @@ const VideoList = () => {
     shuffleVideos();
   }, [id]);
 
+  const filteredVideos = shuffledVideos.filter((item) => item.id !== id);
+
   return (
     <div className="video-list__container">
-      {shuffledVideos.map((item) => (
+      {filteredVideos.map((item) => (
         <VideoListCard item={item} key={item.id} />
       ))}
     </div>

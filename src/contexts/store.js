@@ -4,7 +4,6 @@ import { apiSlice } from "./apiSlice";
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    // Другие редукс-срезы вашего приложения...
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

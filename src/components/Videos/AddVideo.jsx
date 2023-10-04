@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./addVideo.css";
 import { Alert, AlertTitle, Stack } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContextProvider";
+import { useAddVideoMutation } from "../../contexts/apiSlice";
 
 const AddVideo = () => {
   const currentDate = new Date();
@@ -56,7 +57,7 @@ const AddVideo = () => {
     comments: [],
   });
 
-  const { addVideo } = useProduct();
+  const [addVideo, { isLoading }] = useAddVideoMutation();
 
   const isYouTubeLink = (url) => {
     const youtubeUrlRegex =
@@ -202,8 +203,9 @@ const AddVideo = () => {
         onClick={() => {
           handleAddVideo();
         }}
+        disabled={isLoading}
       >
-        Добавить
+        {isLoading ? "Добавление..." : "Добавить"}
       </button>
     </div>
   );

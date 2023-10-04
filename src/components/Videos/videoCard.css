@@ -28,6 +28,8 @@
   width: 100%;
   object-fit: contain;
   cursor: pointer;
+  max-height: 220px;
+  max-width: 392px;
 }
 
 .video-card__img:hover {

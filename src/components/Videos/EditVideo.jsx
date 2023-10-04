@@ -4,6 +4,11 @@ import { Alert, AlertTitle } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import { useProduct } from "../../contexts/ProductContextProvider";
+import {
+  useGetVideoDetailsQuery,
+  useUpdateVideoMutation,
+} from "../../contexts/apiSlice";
+import { ColorRing } from "react-loader-spinner";
 
 const EditVideo = () => {
   // alert
@@ -25,13 +30,15 @@ const EditVideo = () => {
   };
 
   // edit
-  const { getVideoDetails, updateVideo, videoDetails } = useProduct();
-
   const { id } = useParams();
+  const {
+    data: videoDetails,
+    isLoading: isDetailsLoading,
+    error,
+  } = useGetVideoDetailsQuery(id);
 
-  useEffect(() => {
-    getVideoDetails(id);
-  }, []);
+  const [updateVideo, { isLoading: isUpdateLoading }] =
+    useUpdateVideoMutation();
 
   useEffect(() => {
     if (videoDetails) {
@@ -53,7 +60,7 @@ const EditVideo = () => {
     return youtubeUrlRegex.test(url);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (
       !title.trim() ||
       !description.trim() ||
@@ -87,19 +94,52 @@ const EditVideo = () => {
 
       return;
     }
-
     try {
-      const newVideo = { title, description, preview, videoUrl };
-      updateVideo(id, newVideo);
+      const newVideo = {
+        id,
+        editedVideo: { title, description, preview, videoUrl },
+      };
+      const response = await updateVideo(newVideo);
 
       setAlertMessage("Видео успешно изменено — проверьте его!");
       setAlertSeverity("success");
       setShowAlert(true);
       handleNavigateAfterDelay();
     } catch (error) {
-      console.log(error);
+      setAlertMessage("Произошла ошибка при обновлении видео.");
+      setAlertSeverity("error");
+      setShowAlert(true);
+      hideAlertAfterDelay();
+      console.log("Error updating video:", error);
     }
   };
+
+  if (isDetailsLoading) {
+    return (
+      <div
+        style={{
+          height: "400px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ColorRing
+          visible={true}
+          height="90"
+          width="90"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <div className="edit-video">
@@ -160,8 +200,12 @@ const EditVideo = () => {
           onChange={(e) => setVideoUrl(e.target.value)}
         />
       </div>
-      <button className="edit-video__button" onClick={handleSave}>
-        Изменить
+      <button
+        className="edit-video__button"
+        onClick={handleSave}
+        disabled={isUpdateLoading}
+      >
+        {isUpdateLoading ? "Изменение..." : "Изменить"}
       </button>
     </div>
   );

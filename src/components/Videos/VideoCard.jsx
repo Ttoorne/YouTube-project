@@ -11,6 +11,8 @@ import videoEditWhite from "../../assets/edit-svg-white.svg";
 import videoEditBlue from "../../assets/edit-svg-blue.svg";
 import { ADMIN } from "../../helpers/consts";
 import AddToPlaylist from "../AddToPlaylist/AddToPlaylist";
+import { useDeleteVideoMutation } from "../../contexts/apiSlice";
+
 moment.locale("ru");
 
 const formatRelativeTime = (date) => {
@@ -53,7 +55,7 @@ const VideoCard = ({ item }) => {
   const navigate = useNavigate();
   const formattedDate = formatRelativeTime(item.createdAt);
 
-  const { deleteVideo } = useProduct();
+  const [deleteVideo] = useDeleteVideoMutation();
   const {
     user: { email },
     user,
@@ -94,7 +96,11 @@ const VideoCard = ({ item }) => {
       <div className="video-card__info">
         <div className="video-card__avatar">
           <img
-            src={item.avatar}
+            src={
+              item.avatar
+                ? item.avatar
+                : `https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg`
+            }
             alt={item.userName}
             onClick={() => navigate(`/details/${item.id}`)}
           />
