@@ -38,13 +38,17 @@ const reducer = (state = INIT_STATE, action) => {
 const ProductContextProvider = ({ children }) => {
   // left bar
   const [showLeftBar, setShowLeftBar] = useState(false);
+  const [showLeftBarDetails, setShowLeftBarDetails] = useState(false);
 
   function handleLeftBar() {
     setShowLeftBar(!showLeftBar);
   }
 
+  function handleLeftBarDetails() {
+    setShowLeftBarDetails(!showLeftBarDetails);
+  }
+
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const navigate = useNavigate();
 
   //! post request (CREATE)
   const addVideo = async (newVideo) => {
@@ -121,6 +125,8 @@ const ProductContextProvider = ({ children }) => {
   const values = {
     handleLeftBar,
     showLeftBar,
+    handleLeftBarDetails,
+    showLeftBarDetails,
 
     addVideo,
     getVideos,

@@ -11,6 +11,7 @@ const LeftBarFalse = () => {
     user: { email },
   } = useAuth();
 
+
   return (
     <div className="left-bar__false">
       <ul className="left-bar__list">

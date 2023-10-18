@@ -74,7 +74,7 @@ const VideoCard = ({ item }) => {
       <div className="video-card__img-container" style={{ overflow: "hidden" }}>
         <img
           src={item.preview}
-          alt={item.title}
+          title={item.title}
           className="video-card__img"
           onMouseEnter={() => setIsEntered(true)}
           onMouseLeave={() => setIsEntered(false)}
@@ -103,13 +103,16 @@ const VideoCard = ({ item }) => {
             }
             alt={item.userName}
             onClick={() => navigate(`/details/${item.id}`)}
+            title={item.userName}
           />
         </div>
         <div
           className="video-card__descr"
           onClick={() => navigate(`/details/${item.id}`)}
         >
-          <p className="video-card__title">{truncatedTitle}</p>
+          <p className="video-card__title" title={item.title}>
+            {truncatedTitle}
+          </p>
           <p className="video-card__user">{item.userName}</p>
           <p className="video-card__date">{formattedDate}</p>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./navbar.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -14,11 +14,12 @@ import { useProduct } from "../../contexts/ProductContextProvider";
 import { useAuth } from "../../contexts/AuthContextProvider";
 
 const Navbar = () => {
-  const pathName = window.location.pathname;
+  const location = useLocation();
+  const pathName = location.pathname;
 
   const navigate = useNavigate();
 
-  const { handleLeftBar } = useProduct();
+  const { handleLeftBar, handleLeftBarDetails } = useProduct();
 
   // user
   const {
@@ -59,7 +60,11 @@ const Navbar = () => {
           <div
             style={{ width: "100%", height: "100%", fill: "currentcolor" }}
             className="navbar__burger_svg"
-            onClick={handleLeftBar}
+            onClick={
+              pathName.includes("/details/")
+                ? handleLeftBarDetails
+                : handleLeftBar
+            }
           >
             <svg
               height="24"

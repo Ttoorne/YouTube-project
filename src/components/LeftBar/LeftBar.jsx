@@ -11,6 +11,7 @@ const LeftBar = () => {
     user: { email },
   } = useAuth();
 
+
   return (
     <div className="left-bar">
       <div className="left-bar__middle">

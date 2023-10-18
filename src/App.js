@@ -5,22 +5,27 @@ import Navbar from "./components/Navbar/Navbar";
 import LeftBar from "./components/LeftBar/LeftBar";
 import { useProduct } from "./contexts/ProductContextProvider";
 import LeftBarFalse from "./components/LeftBar/LeftBarFalse";
+import LeftBarDetails from "./components/LeftBar/LeftBarDetails";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
-  const { showLeftBar } = useProduct();
-  const pathName = window.location.pathname;
+  const { showLeftBar, showLeftBarDetails } = useProduct();
+  const location = useLocation();
+  const pathName = location.pathname;
 
   return (
     <React.StrictMode>
       <div style={{ position: "relative" }}>
         <Navbar />
         <div style={{ display: "flex" }}>
-          {!pathName.includes(`/details`) ? (
+          {!pathName.includes(`/details/`) ? (
             showLeftBar ? (
               <LeftBar />
             ) : (
               <LeftBarFalse />
             )
+          ) : showLeftBarDetails ? (
+            <LeftBarDetails />
           ) : null}
 
           <MainRoute />
