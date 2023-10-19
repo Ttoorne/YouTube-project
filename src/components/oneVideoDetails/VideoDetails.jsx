@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./videoDetails.css";
 import { useProduct } from "../../contexts/ProductContextProvider";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import VideoList from "./VideoList";
 import { useGetVideoDetailsQuery } from "../../contexts/apiSlice";
 import { ColorRing } from "react-loader-spinner";
@@ -14,6 +14,8 @@ const VideoDetails = () => {
     isLoading,
     isError,
   } = useGetVideoDetailsQuery(id);
+
+  const { showLeftBarDetails } = useProduct();
 
   const getEmbeddedTrailer = () => {
     const urlVideo = videoDetails?.videoUrl;
@@ -48,7 +50,10 @@ const VideoDetails = () => {
     if (urlVideo) {
       const videoId = urlVideo.match(/([a-zA-Z0-9_-]{11})$/)[0];
       return (
-        <div className="video-details__container">
+        <div
+          className="video-details__container"
+          style={showLeftBarDetails ? { pointerEvents: "none" } : null}
+        >
           <div className="video-details__main">
             <iframe
               width="100%"

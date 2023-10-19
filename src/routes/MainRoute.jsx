@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import AddPage from "../pages/AddPage";
 import "./mainRoutes.css";
@@ -14,7 +14,8 @@ import { useAuth } from "../contexts/AuthContextProvider";
 import HistoryPage from "../pages/HistoryPage";
 
 const MainRoute = () => {
-  const { showLeftBar } = useProduct();
+  const { showLeftBar, showLeftBarDetails, handleLeftBarDetails } =
+    useProduct();
   const { user } = useAuth();
 
   const PUBLIC_ROUTES = [
@@ -36,7 +37,8 @@ const MainRoute = () => {
     { link: "/history", element: <HistoryPage />, id: 4 },
   ];
 
-  const pathName = window.location.pathname;
+  const location = useLocation();
+  const pathName = location.pathname;
 
   return (
     <div
@@ -46,8 +48,15 @@ const MainRoute = () => {
       style={
         !showLeftBar && !pathName.includes(`/details/`)
           ? { width: "90%" }
+          : showLeftBarDetails && pathName.includes(`/details/`)
+          ? { filter: "brightness(35%)", pointer: "none" }
           : null
       }
+      onClick={() => {
+        if (showLeftBarDetails) {
+          handleLeftBarDetails();
+        }
+      }}
     >
       <Routes>
         {PUBLIC_ROUTES.map((page) => (

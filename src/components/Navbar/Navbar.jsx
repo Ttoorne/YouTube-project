@@ -53,6 +53,7 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   return (
     <div className="navbar__container">
       <div className="navbar__left">

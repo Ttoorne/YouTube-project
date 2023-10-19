@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainRoute from "./routes/MainRoute";
 import "./app.css";
 import Navbar from "./components/Navbar/Navbar";
@@ -9,9 +9,17 @@ import LeftBarDetails from "./components/LeftBar/LeftBarDetails";
 import { useLocation } from "react-router-dom";
 
 const App = () => {
-  const { showLeftBar, showLeftBarDetails } = useProduct();
+  const { showLeftBar, showLeftBarDetails, handleLeftBarDetails } =
+    useProduct();
+
   const location = useLocation();
   const pathName = location.pathname;
+
+  useEffect(() => {
+    if (showLeftBarDetails === true && !pathName.includes(`/details/`)) {
+      handleLeftBarDetails();
+    }
+  }, [pathName]);
 
   return (
     <React.StrictMode>

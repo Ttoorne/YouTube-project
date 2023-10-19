@@ -1,16 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./leftBar.css";
 import { useAuth } from "../../contexts/AuthContextProvider";
 
 const LeftBar = () => {
   const navigate = useNavigate();
-  const pathName = window.location.pathname;
+
+  const location = useLocation();
+  const pathName = location.pathname;
 
   const {
     user: { email },
   } = useAuth();
-
 
   return (
     <div className="left-bar">
