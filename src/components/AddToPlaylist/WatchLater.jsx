@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContextProvider";
+import "./watchLater.css";
 import { useGetVideosQuery } from "../../contexts/apiSlice";
-import { ColorRing } from "react-loader-spinner";
-import LikeCard from "./LikeCard";
-import "./likeContainer.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContextProvider";
+import { ColorRing } from "react-loader-spinner";
+import LikeCard from "../AddToLiked/LikeCard";
 
-const AddToLiked = () => {
+const WatchLater = () => {
   const { data: videos, isLoading, error } = useGetVideosQuery();
   const navigate = useNavigate();
 
@@ -15,16 +15,16 @@ const AddToLiked = () => {
     getUserName,
   } = useAuth();
 
-  const [likedVideos, setLikedVideos] = useState([]);
+  const [watchLaterVideos, setWatchLaterVideos] = useState([]);
 
   useEffect(() => {
     const newVideos = [];
-    const likedVideo = videos?.filter((item) =>
-      item.likedUsers.some((user) =>
+    const watchLater = videos?.filter((item) =>
+      item.watchLater.some((user) =>
         user === email ? newVideos.push(item) : null
       )
     );
-    setLikedVideos(newVideos);
+    setWatchLaterVideos(newVideos);
   }, [videos]);
 
   const [username, setUserName] = useState("");
@@ -71,26 +71,25 @@ const AddToLiked = () => {
         <div
           className="blured-picture"
           style={{
-            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(15, 15, 15, 1) 90%), url("${likedVideos[0]?.preview}")`,
+            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(15, 15, 15, 1) 90%), url("${watchLaterVideos[0]?.preview}")`,
           }}
         ></div>
-
         <img
           className="liked__left_img"
-          src={likedVideos[0]?.preview}
+          src={watchLaterVideos[0]?.preview}
           alt=""
           title="Воспроизвести"
-          onClick={() => navigate(`/details/${likedVideos[0].id}`)}
+          onClick={() => navigate(`/details/${watchLaterVideos[0].id}`)}
         />
-        <h3>Понравившиеся</h3>
+        <h3>Смотреть позже</h3>
         <div className="liked__left_username-block">
           <p id="liked__left_username">{username}</p>
-          <p id="liked__left_length">{likedVideos?.length} видео</p>
+          <p id="liked__left_length">{watchLaterVideos?.length} видео</p>
         </div>
         <div
           className="liked__left_play"
           title="Воспроизвести"
-          onClick={() => navigate(`/details/${likedVideos[0].id}`)}
+          onClick={() => navigate(`/details/${watchLaterVideos[0].id}`)}
         >
           <div className="liked__left_play-block">
             <yt-icon style={{ width: "24px", height: "24px" }}>
@@ -126,8 +125,8 @@ const AddToLiked = () => {
         </div>
       </div>
       <div className="liked__right">
-        {likedVideos?.length > 0 ? (
-          likedVideos.map((item) => <LikeCard item={item} key={item.id} />)
+        {watchLaterVideos?.length > 0 ? (
+          watchLaterVideos.map((item) => <LikeCard item={item} key={item.id} />)
         ) : (
           <div className="history__empty">
             <img
@@ -135,7 +134,7 @@ const AddToLiked = () => {
               src="https://www.gstatic.com/youtube/src/web/htdocs/img/monkey.png"
               alt=""
             />
-            <h2>У вас нет понравившихся видео!</h2>
+            <h2>У вас нет видео в "Смотреть позже"!</h2>
           </div>
         )}
       </div>
@@ -143,4 +142,4 @@ const AddToLiked = () => {
   );
 };
 
-export default AddToLiked;
+export default WatchLater;

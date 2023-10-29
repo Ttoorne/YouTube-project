@@ -55,6 +55,9 @@ const AddVideo = () => {
     videoUrl: "",
     likes: 0,
     comments: [],
+    likedUsers: [],
+    watchLater: [],
+    views: 0,
   });
 
   const [addVideo, { isLoading }] = useAddVideoMutation();
@@ -121,11 +124,14 @@ const AddVideo = () => {
         description: "",
         userName: username,
         avatar: userAvatar,
-        email: email,
         preview: "",
         videoUrl: "",
         likes: 0,
         comments: [],
+        email: email,
+        likedUsers: [],
+        watchLater: [],
+        views: 0,
       });
 
       setAlertMessage("Видео успешно добавлено — проверьте его!");

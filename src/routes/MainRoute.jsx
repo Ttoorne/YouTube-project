@@ -12,6 +12,8 @@ import NotFoundPage from "../pages/NotFoundPage";
 import YourVideoPage from "../pages/YourVideoPage";
 import { useAuth } from "../contexts/AuthContextProvider";
 import HistoryPage from "../pages/HistoryPage";
+import LikedPage from "../pages/LikedPage";
+import WatchLaterPage from "../pages/WatchLaterPage";
 
 const MainRoute = () => {
   const { showLeftBar, showLeftBarDetails, handleLeftBarDetails } =
@@ -35,6 +37,8 @@ const MainRoute = () => {
     { link: "/add", element: <AddPage />, id: 2 },
     { link: "/your-videos", element: <YourVideoPage />, id: 3 },
     { link: "/history", element: <HistoryPage />, id: 4 },
+    { link: "/liked", element: <LikedPage />, id: 5 },
+    { link: "/playlist", element: <WatchLaterPage />, id: 6 },
   ];
 
   const location = useLocation();
@@ -49,7 +53,12 @@ const MainRoute = () => {
         !showLeftBar && !pathName.includes(`/details/`)
           ? { width: "90%" }
           : showLeftBarDetails && pathName.includes(`/details/`)
-          ? { filter: "brightness(35%)", pointer: "none" }
+          ? {
+              filter: "brightness(35%)",
+              pointer: "none",
+              maxHeight: "100vh",
+              overflow: "hidden",
+            }
           : null
       }
       onClick={() => {

@@ -27,6 +27,7 @@
   width: 21%;
   animation: open 0.2s linear;
   z-index: 20;
+  height: 100vh;
 }
 
 .left-bar__details_position .close {

@@ -1,30 +1,42 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContextProvider";
-import { useProduct } from "../../contexts/ProductContextProvider";
+import { useNavigate } from "react-router-dom";
+import { useUpdateVideoMutation } from "../../contexts/apiSlice";
 
 const AddToPlaylist = ({ item }) => {
+  const navigate = useNavigate();
+  const [updateVideo, { isLoading: isUpdateLoading }] =
+    useUpdateVideoMutation();
+
+  const [watchLater, setWatchLater] = useState([]);
+
   const {
     user: { email },
   } = useAuth();
 
-  const [video, setVideo] = useState({
-    addedVideo: item,
-    playlist: true,
-    email: email,
-  });
-
-  const { addVideoPlaylist } = useProduct();
-
   const handleAddVideo = async () => {
-    try {
-      addVideoPlaylist(video);
-      setVideo({
-        addedVideo: null,
-        playlist: false,
-        email: email,
-      });
-    } catch (error) {
-      console.log(error);
+    if (email) {
+      if (!item?.watchLater.includes(email)) {
+        const updatedWatchLater = [...watchLater, email];
+        setWatchLater(updatedWatchLater);
+
+        try {
+          const newVideo = {
+            id: item.id,
+            editedVideo: { watchLater: updatedWatchLater },
+          };
+          const response = await updateVideo(newVideo);
+        } catch (error) {
+          console.log("Error updating video:", error);
+        }
+      } else {
+        console.log("Вы уже поставили лайк для этого видео.");
+      }
+    } else {
+      console.log(
+        "Вы не авторизованы. Для постановки лайка вам нужно войти в систему."
+      );
+      navigate("/auth");
     }
   };
 

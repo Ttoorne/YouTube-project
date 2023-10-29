@@ -26,7 +26,7 @@ const VideoList = () => {
     };
 
     shuffleVideos();
-  }, [id]);
+  }, [id, videos]);
 
   const filteredVideos = shuffledVideos.filter((item) => item.id !== id);
 

@@ -1,0 +1,109 @@
+.liked__container {
+  position: relative;
+  display: flex;
+  gap: 2.5%;
+  justify-content: center;
+}
+
+/* left */
+.liked__left {
+  max-width: 30%;
+  max-height: 60vh;
+  position: sticky;
+  top: 84px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  font-family: "YouTube Sans", "Roboto", sans-serif;
+  padding: 2.3% 1.8%;
+  cursor: default;
+}
+
+.liked__left_img {
+  max-width: 295px;
+  max-height: 175px;
+  margin: 0 auto;
+  border-radius: 15px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.liked__left_img:hover {
+  filter: brightness(50%);
+  transition: 0.2s;
+}
+
+.liked__left > h3 {
+  font-size: 1.4rem;
+  line-height: 3.8rem;
+  font-weight: 700;
+  margin: 3% 0 0;
+  text-align: center;
+}
+
+.liked__left > p {
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.8rem;
+  font-weight: 400;
+  color: #ffffffb3;
+}
+
+.liked__left_username-block {
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+  padding-bottom: 8%;
+}
+
+#liked__left_username {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  color: #fff;
+}
+
+#liked__left_length {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  color: #ffffffb3;
+}
+
+.liked__left_play {
+  display: flex;
+  background-color: #fff;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 1%;
+  padding: 1% 0;
+  transition: 0.1s;
+  cursor: pointer;
+}
+.liked__left_play:hover {
+  filter: brightness(80%);
+  transition: 0.1s;
+}
+
+.liked__left_play > img {
+}
+
+.liked__left_play > span {
+  color: #000000;
+  font-size: 1rem;
+  line-height: 1.8rem;
+  font-weight: 500;
+}
+
+.liked__left_play-block {
+  height: 24px;
+}
+
+/* left end */
+.liked__right {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 7%;
+}

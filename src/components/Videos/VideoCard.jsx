@@ -69,6 +69,8 @@ const VideoCard = ({ item }) => {
 
   const [isEntered, setIsEntered] = useState(false);
 
+  const handleWatchLater = async () => {};
+
   return (
     <div className="video-card">
       <div className="video-card__img-container" style={{ overflow: "hidden" }}>

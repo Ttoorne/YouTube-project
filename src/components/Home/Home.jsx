@@ -4,6 +4,7 @@ import { useProduct } from "../../contexts/ProductContextProvider";
 import VideoCard from "../Videos/VideoCard";
 import { useGetVideosQuery } from "../../contexts/apiSlice";
 import { ColorRing } from "react-loader-spinner";
+import NotFoundPage from "../../pages/NotFoundPage";
 
 const Home = () => {
   const { data: videos, isLoading, error } = useGetVideosQuery();
@@ -48,8 +49,8 @@ const Home = () => {
     );
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
+  if (error || shuffledVideos?.length == 0) {
+    return <NotFoundPage />;
   }
 
   return (

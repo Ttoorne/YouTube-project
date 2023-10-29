@@ -21,9 +21,6 @@ const reducer = (state = INIT_STATE, action) => {
     case ACTIONS.GET_VIDEO_DETAILS:
       return { ...state, videoDetails: action.payload };
 
-    case ACTIONS.GET_PLAYLIST:
-      return { ...state, playlist: action.payload };
-
     case ACTIONS.ADD_TO_HISTORY:
       return { ...state, history: action.payload };
 
@@ -55,10 +52,6 @@ const ProductContextProvider = ({ children }) => {
     await axios.post(`${API}/videos/`, newVideo);
   };
 
-  const addVideoPlaylist = async (newVideo) => {
-    await axios.post(`${API}/favorites/`, newVideo);
-  };
-
   //! get request (READ)
   const getVideos = async () => {
     try {
@@ -69,29 +62,10 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  const getVideosPlaylist = async () => {
-    try {
-      const { data } = await axios(
-        `${API}/favorites/${window.location.search}`
-      );
-      dispatch({ type: ACTIONS.GET_PLAYLIST, payload: data });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // ! update request (UPDATE)
   async function updateVideo(id, editedVideo) {
     try {
       await axios.patch(`${API}/videos/${id}`, editedVideo);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function updatePlaylistVideo(id, editedVideo) {
-    try {
-      await axios.patch(`${API}/favorites/${id}`, editedVideo);
     } catch (error) {
       console.log(error);
     }
@@ -138,10 +112,6 @@ const ProductContextProvider = ({ children }) => {
     updateVideo,
 
     history: state.history,
-
-    addVideoPlaylist,
-    getVideosPlaylist,
-    playlist: state.playlist,
   };
 
   return (
