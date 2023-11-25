@@ -24,7 +24,7 @@ const Home = () => {
     };
 
     shuffleVideos();
-  }, [videos]);
+  }, [videos?.length]);
 
   if (isLoading) {
     return (

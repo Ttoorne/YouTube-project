@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./videoDetails.css";
 import { useProduct } from "../../contexts/ProductContextProvider";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import VideoList from "./VideoList";
 import {
   useGetVideoDetailsQuery,
@@ -10,62 +10,15 @@ import {
 import { ColorRing } from "react-loader-spinner";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import NotFoundPage from "../../pages/NotFoundPage";
-import moment from "moment";
-
-moment.locale("ru");
-
-const pluralize = (count, words) => {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return words[
-    count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]
-  ];
-};
-
-const formatRelativeTime = (date) => {
-  const diff = moment().diff(date, "minutes");
-  if (diff === 0) {
-    return "только что";
-  } else if (diff < 60) {
-    return `${diff} ${pluralize(diff, ["минуту", "минуты", "минут"])} назад`;
-  } else if (diff < 1440) {
-    const hours = Math.floor(diff / 60);
-    return `${hours} ${pluralize(hours, ["час", "часа", "часов"])} назад`;
-  } else if (diff < 10080) {
-    // 7 days * 24 hours * 60 minutes
-    const days = Math.floor(diff / 1440);
-    return `${days} ${pluralize(days, ["день", "дня", "дней"])} назад`;
-  } else if (diff < 43200) {
-    const weeks = Math.floor(diff / 10080);
-    return `${weeks} ${pluralize(weeks, ["неделю", "недели", "недель"])} назад`;
-  } else if (diff < 525600) {
-    // 365 days * 24 hours * 60 minutes
-    const months = Math.floor(diff / 43200);
-    return `${months} ${pluralize(months, [
-      "месяц",
-      "месяца",
-      "месяцев",
-    ])} назад`;
-  } else {
-    const years = Math.floor(diff / 525600);
-    return `${years} ${pluralize(years, ["год", "года", "лет"])} назад`;
-  }
-};
-
-const formatViews = (views) => {
-  if (views >= 1000000) {
-    const millionViews = (views / 1000000).toFixed(1).replace(/\.0$/, "");
-    return `${millionViews.replace(".", ",")} млн просмотров`;
-  } else if (views >= 1000) {
-    const thousandViews = (views / 1000).toFixed(1).replace(/\.0$/, "");
-    return `${thousandViews.replace(".", ",")} тыс. просмотров`;
-  } else {
-    return `${views} просмотров`;
-  }
-};
+import { useFormat } from "../../contexts/FormattedContextProvider";
 
 const VideoDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { formatRelativeTime, formatViews } = useFormat();
+
+  const location = useLocation();
+  const pathName = location.pathname;
 
   const {
     data: videoDetails,
@@ -95,22 +48,28 @@ const VideoDetails = () => {
     useUpdateVideoMutation();
 
   const [likedUsers, setLikedUsers] = useState([]);
+  const [viewsIncreased, setViewsIncreased] = useState(false);
 
   const increaseViews = async () => {
     try {
-      const newVideo = {
-        id,
-        editedVideo: { views: videoDetails.views + 1 }, // Увеличьте просмотры на 1
-      };
-      const response = await updateVideo(newVideo);
+      if (videoDetails && !viewsIncreased) {
+        const newVideo = {
+          id,
+          editedVideo: { views: videoDetails.views + 1 },
+        };
+        const response = await updateVideo(newVideo);
+        setViewsIncreased(true);
+      }
     } catch (error) {
       console.log("Error updating video:", error);
     }
   };
 
   useEffect(() => {
-    increaseViews();
-  }, []);
+    if (videoDetails) {
+      increaseViews();
+    }
+  }, [videoDetails, viewsIncreased]);
 
   const handleLike = async () => {
     if (email) {
@@ -168,6 +127,50 @@ const VideoDetails = () => {
     }
   };
 
+  // item.title
+  const MAX_HEIGHT = 50;
+  const descrRef = useRef(null);
+  const [truncatedDescription, setTruncatedDescription] = useState("");
+
+  useEffect(() => {
+    const truncateTextByHeight = () => {
+      const element = descrRef.current;
+      const originalText = videoDetails?.description || "";
+      let truncatedText = originalText;
+
+      while (element.offsetHeight > MAX_HEIGHT) {
+        const lastSpaceIndex = truncatedText.lastIndexOf(" ");
+        truncatedText = truncatedText.substring(0, lastSpaceIndex) + " ...еще";
+        element.innerText = truncatedText;
+      }
+
+      setTruncatedDescription(truncatedText);
+    };
+
+    if (descrRef.current) {
+      truncateTextByHeight();
+    }
+  }, [videoDetails?.description, MAX_HEIGHT, id]);
+  // item.title
+
+  const [showDescription, setShowDescription] = useState(false);
+
+  const handleShowDescr = () => {
+    setShowDescription(true);
+  };
+
+  const handleCloseDescr = () => {
+    if (showDescription) {
+      setTimeout(() => {
+        setShowDescription(false);
+      }, 0);
+    }
+  };
+
+  useEffect(() => {
+    setShowDescription(false);
+  }, [pathName, id]);
+
   const getEmbeddedTrailer = () => {
     if (isLoading) {
       return (
@@ -220,7 +223,7 @@ const VideoDetails = () => {
               width="100%"
               height="480"
               src={`https://www.youtube.com/embed/${videoId}`}
-              title="Product-Video"
+              title={videoDetails?.title}
               allowFullScreen
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -330,16 +333,50 @@ const VideoDetails = () => {
               </div>
             </div>
             {/* description start */}
-            <div className="video-details__descr-bottom">
+            <div
+              className="video-details__descr-bottom"
+              onClick={() =>
+                showDescription && videoDetails?.description.length < 350
+                  ? null
+                  : handleShowDescr()
+              }
+            >
               <div
                 className="video-details__descr-bottom_views"
-                title={`${newViews} просмотров * ${date}`}
+                title={`${newViews || videoDetails?.views} просмотров  ${date}`}
               >
                 <p>{formattedViews}</p>
                 <p>{formattedDate}</p>
               </div>
               <div className="video-details__descr-bottom_description">
-                <p>{videoDetails?.description}</p>
+                {showDescription ? (
+                  <div>
+                    <p className="video-details__descr-bottom_description-p">
+                      {videoDetails?.description}
+                    </p>
+                    {showDescription && (
+                      <p
+                        className="video-details__descr-bottom_description-close"
+                        onClick={handleCloseDescr}
+                      >
+                        Свернуть
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <p
+                    className="video-details__descr-bottom_description-p"
+                    ref={descrRef}
+                  >
+                    {truncatedDescription.length < 350 &&
+                    truncatedDescription === videoDetails?.description &&
+                    truncatedDescription.includes("...еще")
+                      ? truncatedDescription
+                      : truncatedDescription.length >= 350
+                      ? truncatedDescription.slice(0, 350) + " ...еще"
+                      : truncatedDescription}
+                  </p>
+                )}
               </div>
             </div>
             {/* description end */}

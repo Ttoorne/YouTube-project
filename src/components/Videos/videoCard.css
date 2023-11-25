@@ -8,6 +8,10 @@
 
 .video-card__img-container {
   position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  max-height: 220px;
+  height: 217px;
 }
 
 .add-playlist {
@@ -24,21 +28,23 @@
 
 .video-card__img {
   border-radius: 10px;
-  transition: 0.2s;
+  transition: 0.3s;
   width: 100%;
-  object-fit: contain;
-  cursor: pointer;
   max-height: 220px;
   max-width: 392px;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 .video-card__img:hover {
   transform: scale(1.1);
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 .video-card__info {
   display: flex;
+  gap: 3%;
   cursor: default;
 }
 
@@ -57,26 +63,34 @@
 .video-card__descr {
   display: flex;
   flex-direction: column;
-  margin-left: 3%;
-  cursor: pointer;
+  gap: 4px;
   min-height: 108px;
+  width: 100%;
+  cursor: pointer;
 }
 
 .video-card__title {
   font-size: 16px;
   font-weight: 500;
-  margin: 12px 0 5px;
+  margin: 12px 0 3px;
+  max-width: 90%;
 }
+
 .video-card__user {
   font-size: 14px;
   color: #aaaaaa;
   margin: 0;
 }
 
-.video-card__date {
+.video-card__bottom {
+  display: flex;
+  gap: 1.5%;
   font-size: 14px;
   color: #aaaaaa;
-  margin-top: 5px;
+}
+
+.video-card__bottom > p {
+  margin: 0;
 }
 
 .video-card__func {

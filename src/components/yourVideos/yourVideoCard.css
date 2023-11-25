@@ -6,9 +6,14 @@
   cursor: default;
 }
 
+.your-video-card__container {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
 .your-video-card__img {
   border-radius: 10px;
-  transition: 0.2s;
+  transition: 0.3s;
   width: 100%;
   object-fit: contain;
   cursor: pointer;
@@ -16,11 +21,12 @@
 
 .your-video-card__img:hover {
   transform: scale(1.1);
-  transition: 0.2s;
+  transition: 0.3s;
 }
 .your-video-card__info {
   display: flex;
   cursor: default;
+  gap: 2%;
 }
 
 .your-video-card__avatar {
@@ -38,16 +44,20 @@
 .your-video-card__descr {
   display: flex;
   flex-direction: column;
-  margin-left: 3%;
   cursor: pointer;
+  gap: 4px;
+  width: 100%;
   min-height: 108px;
+  cursor: pointer;
 }
 
 .your-video-card__title {
   font-size: 16px;
   font-weight: 500;
-  margin: 12px 0 5px;
+  margin: 12px 0 3px;
+  max-width: 90%;
 }
+
 .your-video-card__user {
   font-size: 14px;
   color: #aaaaaa;
@@ -57,7 +67,6 @@
 .your-video-card__date {
   font-size: 14px;
   color: #aaaaaa;
-  margin-top: 5px;
 }
 
 .your-video-card__func {

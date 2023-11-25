@@ -1,5 +1,6 @@
 .home {
   display: flex;
   flex-wrap: wrap;
-  gap: 2%;
+  gap: 1.5%;
+  margin-left: 1.2%;
 }
