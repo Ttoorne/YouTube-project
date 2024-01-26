@@ -38,7 +38,7 @@ const WatchLater = () => {
     fetchData();
   }, [getUserName]);
 
-  if (isLoading) {
+  if (isLoading && !username) {
     return (
       <div
         style={{

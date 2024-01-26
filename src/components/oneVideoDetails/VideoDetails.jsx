@@ -243,7 +243,34 @@ const VideoDetails = () => {
               </div>
               <div className="video-details__likes">
                 <div className="like-div" title="Нравится" onClick={handleLike}>
-                  {videoDetails?.likedUsers.includes(email) ? (
+                  {isUpdateLoading ? (
+                    <div
+                      style={{
+                        height: "30px",
+                        width: "30px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginLeft: "2vh",
+                      }}
+                    >
+                      <ColorRing
+                        visible={true}
+                        height="100%"
+                        width="100%"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        colors={[
+                          "#f1f1f1",
+                          "#f1f1f1",
+                          "#f1f1f1",
+                          "#f1f1f1",
+                          "#f1f1f1",
+                        ]}
+                      />
+                    </div>
+                  ) : videoDetails?.likedUsers.includes(email) ? (
                     <svg
                       className="like-svg"
                       fill="#ffffff"

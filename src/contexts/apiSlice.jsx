@@ -20,7 +20,7 @@ export const apiSlice = createApi({
     updateVideo: builder.mutation({
       query: ({ id, editedVideo }) => ({
         url: `/videos/${id}`,
-        method: "PATCH",
+        method: "PUT",
         body: editedVideo,
       }),
       invalidatesTags: ["videos"],

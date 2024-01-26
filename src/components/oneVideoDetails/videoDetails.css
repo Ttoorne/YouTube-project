@@ -12,9 +12,12 @@
 }
 
 .video-details__title {
+  font-family: "Roboto", "Arial", sans-serif;
   font-size: 20px;
-  font-weight: 600;
-  margin: 1% 0 2%;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+  margin: 1% 0 1.5%;
 }
 
 .video-details__descr {
@@ -46,13 +49,12 @@
 .video-details__likes {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #272728;
   border-radius: 20px;
 }
 
 .like-div {
-  padding-left: 2vh;
-  height: 6vh;
   cursor: pointer;
   background-color: #272728;
   display: flex;
@@ -60,7 +62,7 @@
   justify-content: center;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  gap: 2vh;
+  gap: 1.3vh;
 }
 
 .like-div:hover {
@@ -69,12 +71,12 @@
 }
 
 .dislike-div {
-  padding-right: 1vh;
+  padding: 0 1.5vh;
   cursor: pointer;
   background-color: #272728;
   display: flex;
   align-items: center;
-  width: 7vh;
+  height: 100%;
   justify-content: center;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -84,24 +86,38 @@
   background-color: #525252;
   transition: 0.2s;
 }
+
 .like-svg {
   width: 25px;
   height: 40px;
+  margin-left: 2vh;
+  transition: transform 0.3s ease-in-out;
 }
 
 .dislike-svg {
   width: 25px;
   height: 40px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dislike-div:hover .dislike-svg {
+  transform: scale(1.2) rotate(180deg);
 }
 
 .likes-count {
-  padding-right: 2vh;
-  font-size: 14px;
+  margin-right: 2vh;
+  font-size: 2.2vh;
+  font-weight: 400;
   letter-spacing: 2px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.like-div:hover .like-svg {
+  transform: scale(1.2);
 }
 
 .like-square {
-  height: 3vh;
+  height: 65%;
   background-color: #525252;
   width: 1px;
 }

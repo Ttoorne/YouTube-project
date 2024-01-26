@@ -1,47 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 import { useUpdateVideoMutation } from "../../contexts/apiSlice";
+import "./addToPlaylist.css";
+import { ColorRing } from "react-loader-spinner";
 
-const AddToPlaylist = ({ item }) => {
+const AddToPlaylist = ({
+  item,
+  isAddedToWatchLater,
+  handleAddToWatchLater,
+}) => {
   const navigate = useNavigate();
   const [updateVideo, { isLoading: isUpdateLoading }] =
     useUpdateVideoMutation();
 
-  const [watchLater, setWatchLater] = useState([]);
   const {
     user: { email },
   } = useAuth();
 
-  const [isAddedToWatchLater, setIsAddedToWatchLater] = useState(
-    item?.watchLater.includes(email)
-  );
-
-  useEffect(() => {
-    setIsAddedToWatchLater(item?.watchLater.includes(email));
-  }, [item.watchLater, email]);
-
   const handleAddVideo = async () => {
     if (email) {
-      let updatedWatchLater;
-
-      if (!item?.watchLater.includes(email) && !isAddedToWatchLater) {
-        updatedWatchLater = [...watchLater, email];
-      } else {
-        updatedWatchLater = watchLater.filter(
-          (emailInList) => emailInList !== email
-        );
-      }
-
-      setWatchLater(updatedWatchLater);
-
       try {
         const newVideo = {
           id: item.id,
-          editedVideo: { watchLater: updatedWatchLater },
+          editedVideo: {
+            watchLater: isAddedToWatchLater
+              ? item.watchLater.filter((emailInList) => emailInList !== email)
+              : [...item.watchLater, email],
+          },
         };
         const response = await updateVideo(newVideo);
-        setIsAddedToWatchLater(!isAddedToWatchLater);
+        handleAddToWatchLater();
       } catch (error) {
         console.log("Error updating video:", error);
       }
@@ -53,10 +42,33 @@ const AddToPlaylist = ({ item }) => {
     }
   };
 
+  if (isUpdateLoading) {
+    return (
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ColorRing
+          visible={true}
+          height="100%"
+          width="100%"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#f1f1f1", "#f1f1f1", "#f1f1f1", "#f1f1f1", "#f1f1f1"]}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       onClick={handleAddVideo}
-      className="playlist-icon"
+      className={`playlist-icon ${isAddedToWatchLater ? "added" : ""}`}
       style={{
         fill: "#f1f1f1",
       }}

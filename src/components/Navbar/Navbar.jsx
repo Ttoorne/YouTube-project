@@ -225,7 +225,7 @@ const Navbar = () => {
               {user ? (
                 <MenuItem className="navbar__user_men">
                   <Typography textAlign="center">
-                    С возвращением, {username ? username : email}!
+                    С возвращением, {username || email}!
                   </Typography>
                 </MenuItem>
               ) : (

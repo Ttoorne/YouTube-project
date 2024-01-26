@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./videoCard.css";
 import { useNavigate } from "react-router-dom";
-import { useProduct } from "../../contexts/ProductContextProvider";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import videoDeleteWhite from "../../assets/video__delete_white.svg";
 import videoDeleteRed from "../../assets/video__delete_red.svg";
@@ -49,7 +48,6 @@ const VideoCard = ({ item }) => {
       truncateTextByHeight();
     }
 
-    // Cleanup function to restore original text when component unmounts
     return () => {
       if (titleRef.current) {
         titleRef.current.innerText = item.title;
@@ -62,6 +60,14 @@ const VideoCard = ({ item }) => {
   const [isHoveredEdit, setIsHoveredEdit] = useState(false);
 
   const [isEntered, setIsEntered] = useState(false);
+
+  const [isAddedToWatchLater, setIsAddedToWatchLater] = useState(
+    item?.watchLater.includes(email)
+  );
+
+  const handleAddToWatchLater = () => {
+    setIsAddedToWatchLater(!isAddedToWatchLater);
+  };
 
   return (
     <div className="video-card">
@@ -82,11 +88,15 @@ const VideoCard = ({ item }) => {
             onMouseLeave={() => setIsEntered(false)}
             title={
               item?.watchLater.includes(email)
-                ? `Уже добавлено в "Смотреть позже"`
+                ? `Убрать из "Смотреть позже"`
                 : `Добавить в "Смотреть позже"`
             }
           >
-            <AddToPlaylist item={item} />
+            <AddToPlaylist
+              item={item}
+              isAddedToWatchLater={isAddedToWatchLater}
+              handleAddToWatchLater={handleAddToWatchLater}
+            />
           </div>
         ) : null}
       </div>
