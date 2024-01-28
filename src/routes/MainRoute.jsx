@@ -14,6 +14,7 @@ import { useAuth } from "../contexts/AuthContextProvider";
 import HistoryPage from "../pages/HistoryPage";
 import LikedPage from "../pages/LikedPage";
 import WatchLaterPage from "../pages/WatchLaterPage";
+import SearchPage from "../pages/SearchPage";
 
 const MainRoute = () => {
   const { showLeftBar, showLeftBarDetails, handleLeftBarDetails } =
@@ -30,6 +31,7 @@ const MainRoute = () => {
     { link: "*", element: <NotFoundPage />, id: 3 },
     { link: "/auth", element: <AuthPage />, id: 4 },
     { link: "/register", element: <Register />, id: 5 },
+    { link: "/search", element: <SearchPage />, id: 6 },
   ];
 
   const PRIVATE_ROUTES = [

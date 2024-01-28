@@ -1,0 +1,56 @@
+.search-card {
+  display: flex;
+  gap: 2vh;
+
+  &__img {
+    width: 360px;
+    height: 200px;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__descr {
+    padding-top: 1vh;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    color: #f1f1f1;
+    font-family: "Roboto", "Arial", sans-serif;
+  }
+}
+
+.search-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.search-view {
+  margin: 0;
+  color: #aaaaaa;
+  font-size: 13px;
+}
+
+.search-card__descr_user {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  margin: 1vh 0 0;
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 30px;
+  }
+  p {
+    color: #aaaaaa;
+    font-size: 12px;
+  }
+}
+
+.search-descr {
+  margin: 0;
+  color: #aaaaaa;
+  font-size: 12px;
+}

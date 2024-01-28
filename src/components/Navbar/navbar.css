@@ -73,6 +73,11 @@
 
 .navbar__input_left:focus {
   border-color: #1c62b9 !important;
+  outline: none !important;
+}
+
+.navbar__input_left:focus-visible {
+  border-color: #1c62b9 !important;
 }
 
 .navbar__input_right {
@@ -83,18 +88,24 @@
   background-color: #222222;
   height: 42px;
   border: 1px solid #303030;
-  border-left: none;
   border-radius: 20px;
+  border-left-color: transparent;
   cursor: pointer;
 }
 
-.navbar__input_right:focus {
+.navbar__input_right:active {
   border-color: gray;
 }
 
 .navbar__input_right-svg {
   width: 24px;
   height: 24px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.navbar__input_right:hover .navbar__input_right-svg {
+  transform: scale(1.2);
+  transition: 0.2s;
 }
 
 /* navbar right */

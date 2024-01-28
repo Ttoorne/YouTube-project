@@ -36,7 +36,6 @@ export const apiSlice = createApi({
       query: (id) => `/videos/${id}`,
       providesTags: (result, error, id) => [{ type: "videos", id: id }],
     }),
-    // Добавьте другие мутации из ProductContextProvider здесь...
   }),
 });
 

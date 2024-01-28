@@ -54,6 +54,25 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
+  // search
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const savedQuery = localStorage.getItem("searchQuery");
+    if (savedQuery) {
+      setSearchQuery(savedQuery);
+    }
+  }, []);
+
+  const handleSearch = () => {
+    if (searchQuery.trim().length > 0) {
+      const encodedQuery = encodeURIComponent(searchQuery);
+      localStorage.setItem("searchQuery", searchQuery);
+      navigate(`/search?query=${encodedQuery}`);
+    }
+  };
+  // search
+
   return (
     <div className="navbar__container">
       <div className="navbar__left">
@@ -141,6 +160,8 @@ const Navbar = () => {
             borderTopRightRadius: "0px",
             borderBottomRightRadius: "0px",
           }}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button
           className="navbar__input_right"
@@ -148,7 +169,8 @@ const Navbar = () => {
             borderTopLeftRadius: "0px",
             borderBottomLeftRadius: "0px",
           }}
-          title="Введите запрос"
+          title="Поиск"
+          onClick={handleSearch}
         >
           <div style={{ fill: "#f1f1f1" }} className="navbar__input_right-svg">
             <svg

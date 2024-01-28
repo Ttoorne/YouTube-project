@@ -18,8 +18,6 @@ const AuthContextProvider = ({ children }) => {
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
 
-  const navigate = useNavigate();
-
   const clearInputs = () => {
     setEmail("");
     setPassword("");
