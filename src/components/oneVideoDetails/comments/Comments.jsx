@@ -96,48 +96,51 @@ const Comments = ({ item }) => {
           ? "коментария"
           : "коментариев"}
       </h4>
-      <div className="comments__input">
-        <img src={userAvatar} alt="" />
+      {email && (
+        <div className="comments__input">
+          <img src={userAvatar} alt="" />
 
-        {isUpdateLoading ? (
-          <div
-            style={{
-              height: "35px",
-              width: "35px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "auto",
-            }}
-          >
-            <ColorRing
-              visible={true}
-              height="100%"
-              width="100%"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={["#f1f1f1", "#f1f1f1", "#f1f1f1", "#f1f1f1", "#f1f1f1"]}
-            />
-          </div>
-        ) : (
-          <div>
-            <input
-              type="text"
-              placeholder="Введите комментарий"
-              value={commentInput}
-              onChange={handleCommentInputChange}
-            />
+          {isUpdateLoading ? (
             <div
-              className="comments__input_button"
-              style={{ display: commentInput.trim() ? "flex" : "none" }}
+              style={{
+                height: "35px",
+                width: "35px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "auto",
+              }}
             >
-              <button onClick={() => setCommentInput("")}>Отмена</button>
-              <button onClick={addComment}>Оставить коментарий</button>
+              <ColorRing
+                visible={true}
+                height="100%"
+                width="100%"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={["#f1f1f1", "#f1f1f1", "#f1f1f1", "#f1f1f1", "#f1f1f1"]}
+              />
             </div>
-          </div>
-        )}
-      </div>
+          ) : (
+            <div>
+              <input
+                type="text"
+                placeholder="Введите комментарий"
+                value={commentInput}
+                onChange={handleCommentInputChange}
+              />
+              <div
+                className="comments__input_button"
+                style={{ display: commentInput.trim() ? "flex" : "none" }}
+              >
+                <button onClick={() => setCommentInput("")}>Отмена</button>
+                <button onClick={addComment}>Оставить коментарий</button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* comments */}
       <div className="comments-block">
         {item.comments.map((comm, index) => (
@@ -156,7 +159,7 @@ const Comments = ({ item }) => {
               </p>
               <p>{comm.comment}</p>
             </div>
-            {hoveredCommentIndex === index && (
+            {hoveredCommentIndex === index && email === comm.email && (
               <svg
                 className="comments-options"
                 viewBox="0 0 24 24"

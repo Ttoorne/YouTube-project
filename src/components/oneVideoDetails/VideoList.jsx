@@ -4,11 +4,10 @@ import VideoListCard from "./VideoListCard";
 import "./videoList.css";
 import { useParams } from "react-router-dom";
 import { useGetVideosQuery } from "../../contexts/apiSlice";
-import { ColorRing, Vortex } from "react-loader-spinner";
+import { ColorRing } from "react-loader-spinner";
 
 const VideoList = () => {
   const { data: videos, isLoading, error } = useGetVideosQuery();
-
   const { id } = useParams();
 
   const [shuffledVideos, setShuffledVideos] = useState([]);
@@ -27,6 +26,29 @@ const VideoList = () => {
 
     shuffleVideos();
   }, [videos?.length]);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          height: "400px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ColorRing
+          visible={true}
+          height="90"
+          width="90"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </div>
+    );
+  }
 
   const filteredVideos = shuffledVideos.filter((item) => item.id !== id);
 

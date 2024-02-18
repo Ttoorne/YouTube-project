@@ -64,6 +64,10 @@ const Navbar = () => {
     }
   }, []);
 
+  window.onload = () => {
+    localStorage.removeItem("searchQuery");
+  };
+
   const handleSearch = () => {
     if (searchQuery.trim().length > 0) {
       const encodedQuery = encodeURIComponent(searchQuery);
