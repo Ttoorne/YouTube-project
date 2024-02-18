@@ -11,6 +11,7 @@ import { ColorRing } from "react-loader-spinner";
 import { useAuth } from "../../contexts/AuthContextProvider";
 import NotFoundPage from "../../pages/NotFoundPage";
 import { useFormat } from "../../contexts/FormattedContextProvider";
+import Comments from "./comments/Comments";
 
 const VideoDetails = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const VideoDetails = () => {
     if (videoDetails) {
       increaseViews();
     }
-  }, [videoDetails, viewsIncreased]);
+  }, [videoDetails, id]);
 
   const handleLike = async () => {
     if (email) {
@@ -195,7 +196,7 @@ const VideoDetails = () => {
       );
     }
 
-    if (isError) {
+    if (isError || !videoDetails || !videoDetails.videoUrl) {
       return <NotFoundPage />;
     }
 
@@ -406,6 +407,7 @@ const VideoDetails = () => {
                 )}
               </div>
             </div>
+            <Comments item={videoDetails} />
             {/* description end */}
           </div>
           <VideoList />
