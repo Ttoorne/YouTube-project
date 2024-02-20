@@ -38,6 +38,8 @@ const Comments = ({ item }) => {
 
   const [commentInput, setCommentInput] = useState("");
   const [hoveredCommentIndex, setHoveredCommentIndex] = useState(null); // Состояние для отслеживания наведения на комментарий
+  const [editingCommentIndex, setEditingCommentIndex] = useState(null); // Состояние для отслеживания редактируемого комментария
+  const [editingCommentText, setEditingCommentText] = useState(""); // Состояние для хранения текста редактируемого комментария
   const currentDate = new Date();
   const { formatRelativeTime } = useFormat();
 
@@ -86,15 +88,42 @@ const Comments = ({ item }) => {
     }
   };
 
+  const handleEditComment = (index) => {
+    setEditingCommentIndex(index);
+    setEditingCommentText(item.comments[index].comment);
+  };
+
+  const saveEditedComment = async () => {
+    try {
+      const updatedComments = item.comments.map((comm, index) => {
+        if (index === editingCommentIndex) {
+          return { ...comm, comment: editingCommentText };
+        }
+        return comm;
+      });
+      const newVideo = { id, editedVideo: { comments: updatedComments } };
+      const response = await updateVideo(newVideo);
+      setEditingCommentIndex(null);
+      setEditingCommentText("");
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
+  const cancelEditComment = () => {
+    setEditingCommentIndex(null);
+    setEditingCommentText("");
+  };
+
   return (
     <div className="comments">
       <h4>
         {item.comments.length}{" "}
-        {lastNum == 1
-          ? "коментарии"
-          : lastNum == 2 || lastNum == 3 || lastNum == 4
-          ? "коментария"
-          : "коментариев"}
+        {lastNum === 1
+          ? "комментарий"
+          : lastNum >= 2 && lastNum <= 4
+          ? "комментария"
+          : "комментариев"}
       </h4>
       {email && (
         <div className="comments__input">
@@ -134,7 +163,7 @@ const Comments = ({ item }) => {
                 style={{ display: commentInput.trim() ? "flex" : "none" }}
               >
                 <button onClick={() => setCommentInput("")}>Отмена</button>
-                <button onClick={addComment}>Оставить коментарий</button>
+                <button onClick={addComment}>Оставить комментарий</button>
               </div>
             </div>
           )}
@@ -157,8 +186,29 @@ const Comments = ({ item }) => {
                 {""}
                 <span>{formatRelativeTime(comm.createdTime)}</span>
               </p>
-              <p>{comm.comment}</p>
+              {editingCommentIndex === index ? (
+                <div className="comment-section__descr_edit">
+                  <input
+                    value={editingCommentText}
+                    onChange={(e) => setEditingCommentText(e.target.value)}
+                  />
+                  <div
+                    className="comment-section__descr_edit-button"
+                    style={{
+                      display: editingCommentText.trim() ? "flex" : "none",
+                    }}
+                  >
+                    <button onClick={cancelEditComment}>Отмена</button>
+                    <button onClick={saveEditedComment}>
+                      Изменить комментарий
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p>{comm.comment}</p>
+              )}
             </div>
+
             {hoveredCommentIndex === index && email === comm.email && (
               <svg
                 className="comments-options"
@@ -186,7 +236,7 @@ const Comments = ({ item }) => {
                 className="comm-modal"
                 onMouseLeave={() => setShowModal(false)}
               >
-                <p>
+                <p onClick={() => handleEditComment(index)}>
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"

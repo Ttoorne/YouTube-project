@@ -25,7 +25,7 @@ const VideoList = () => {
     };
 
     shuffleVideos();
-  }, [videos?.length]);
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -35,6 +35,7 @@ const VideoList = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          margin: "auto",
         }}
       >
         <ColorRing
